@@ -241,11 +241,9 @@ public class ReversePolishNotationConverter {
 			
 			if (withoutSpacesToken.equals(processedToken)) {
 				indexInPreparedExpression++;
-				
 				if (!withoutSpacesTokenizer.hasMoreTokens()) {
 					break;
 				}
-				
 				withoutSpacesToken = withoutSpacesTokenizer.nextToken();
 			}
 			
