@@ -39,8 +39,7 @@ public class MathElements {
 	}
 
 	public static boolean isFunction(String token) {
-		return twoArgFunctions.containsKey(token)
-				|| oneArgFunctions.containsKey(token);
+		return twoArgFunctions.containsKey(token) || oneArgFunctions.containsKey(token);
 	}
 
 	public static boolean isNumber(String token) {
@@ -135,14 +134,14 @@ public class MathElements {
 		return oneArgFunctions.get(token).evaluate(argument);
 	}
 
-	public static Double evaluateTwoArgFunction(String token, Double firstArg,
-			Double secondArg) {
+	public static Double evaluateTwoArgFunction(String token, Double firstArg, Double secondArg) {
 		return twoArgFunctions.get(token).evaluate(firstArg, secondArg);
 	}
 
 	public static int priorityComparator(String operator1, String operator2) {
 		int priority1 = OPERATIONS.get(operator1);
 		int priority2 = OPERATIONS.get(operator2);
+		
 		return priority1 - priority2;
 	}
 
