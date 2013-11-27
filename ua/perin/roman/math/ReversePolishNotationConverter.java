@@ -211,7 +211,7 @@ public class ReversePolishNotationConverter {
 		     || (previousToken.equals(")") && currentToken.equals("("))
 		     || (previousToken.equals(")") && MathElements.isNumber(currentToken))
 		     || (previousToken.equals(")") && MathElements.isOneArgFunction(currentToken))
-	 	     || (previousToken.equals(")") && MathElements.isTwoArgFunction(currentToken))
+		     || (previousToken.equals(")") && MathElements.isTwoArgFunction(currentToken))
 		     || (previousToken.equals(",") && currentToken.equals(")"))
 		     || (previousToken.equals(",") && MathElements.isOperator(currentToken))
 		     || (MathElements.isOperator(previousToken) && MathElements.isOperator(currentToken))
