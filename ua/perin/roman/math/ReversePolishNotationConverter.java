@@ -79,7 +79,7 @@ public class ReversePolishNotationConverter {
 				while (!stackOperators.isEmpty()
 				       && !"(".equals(stackOperators.peek())) {
 					
-					   output.add(stackOperators.pop());
+			             output.add(stackOperators.pop());
 				}
 				stackOperators.push(token);
 				continue analyze_next_token;
@@ -126,7 +126,7 @@ public class ReversePolishNotationConverter {
 					&& MathElements.priorityComparator(token,
 						stackOperators.peek()) <= 0) {
 
-					output.add(stackOperators.pop());
+			              output.add(stackOperators.pop());
 				}
 				stackOperators.push(token);
 				continue analyze_next_token;
