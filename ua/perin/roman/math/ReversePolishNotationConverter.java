@@ -17,27 +17,28 @@ public class ReversePolishNotationConverter {
 
 	private static 	String originExpression;
 	private static 	String preparedExpression;
-	private static  List<String> output		     = new LinkedList<>();
-	private static Stack<String> stackOperators  = new Stack<String>();
+	private static  List<String> output	     = new LinkedList<>();
+	private static  Stack<String> stackOperators = new Stack<String>();
 	private static 	int    indexOfCurrentToken   = 0;
-	private static  String token 				 = "";
-	private static  String previousToken 		 = "";
+	private static  String token 		     = "";
+	private static  String previousToken 	     = "";
 
 	public static List<String> sortingStation(String inputExpression)
 			throws IOException {
 
-		if (inputExpression == null || inputExpression.length() == 0)
+		if (inputExpression == null || inputExpression.length() == 0){
 			throw new IOException("Mathematical expression isn't specified.");
+		}
 
-		originExpression = inputExpression;
+		originExpression   = inputExpression;
 		preparedExpression = doPreparations(inputExpression);
 		
 		//reset data
 		stackOperators.clear();
 		output.clear();
 		indexOfCurrentToken = 0;
-		token = "";
-		previousToken = "";
+		token               = "";
+		previousToken       = "";
 
 		return sortingStation();
 	}
@@ -51,8 +52,9 @@ public class ReversePolishNotationConverter {
 		}
 
 		analyze_next_token: while (tokenizer.hasMoreTokens()) {
+			
 			previousToken = token;
-			token = tokenizer.nextToken();
+			token         = tokenizer.nextToken();
 			indexOfCurrentToken++;
 
 			// Two adjacent tokens are checking on compatibility
@@ -62,18 +64,22 @@ public class ReversePolishNotationConverter {
 				output.add(token);
 				continue analyze_next_token;
 			}
+			
 			if (token.equals("(")) {
 				stackOperators.push(token);
 				continue analyze_next_token;
 			}
+			
 			if (MathElements.isFunction(token)) {
 				stackOperators.push(token);
 				continue analyze_next_token;
 			}
+			
 			if (token.equals(",")) {
 				while (!stackOperators.isEmpty()
-						&& !"(".equals(stackOperators.peek())) {
-					output.add(stackOperators.pop());
+				       && !"(".equals(stackOperators.peek())) {
+					
+					 output.add(stackOperators.pop());
 				}
 				stackOperators.push(token);
 				continue analyze_next_token;
@@ -116,9 +122,9 @@ public class ReversePolishNotationConverter {
 			if (MathElements.isOperator(token)) {
 
 				while (!stackOperators.isEmpty()
-						&& MathElements.isOperator(stackOperators.peek())
-						&& MathElements.priorityComparator(token,
-								stackOperators.peek()) <= 0) {
+					&& MathElements.isOperator(stackOperators.peek())
+					&& MathElements.priorityComparator(token,
+						stackOperators.peek()) <= 0) {
 
 					output.add(stackOperators.pop());
 				}
@@ -152,18 +158,20 @@ public class ReversePolishNotationConverter {
 
 		if (!previousToken.isEmpty()) {
 			checkAdjacentTokens(previousToken, currentToken);
+			
 		} else if (MathElements.isOperator(currentToken)
-				|| currentToken.equals(")") || currentToken.equals(",")) {
+			   || currentToken.equals(")") || currentToken.equals(",")) {
+			   	
 			throw new IOException("Incorrect first argument: \""
-								  + currentToken	+ "\"");
+					      + currentToken + "\"");
 		}
 	}
 
-	private static void caseOneArgFunction(int delimiterCounter)
-			throws IOException {
+	private static void caseOneArgFunction(int delimiterCounter) throws IOException {
 
 		if (!stackOperators.empty()
-				&& MathElements.isOneArgFunction(stackOperators.peek())) {
+		    && MathElements.isOneArgFunction(stackOperators.peek())) {
+			
 			if (delimiterCounter != 0) {
 				bugIllegalNumberOfArguments();
 			} else {
@@ -172,12 +180,12 @@ public class ReversePolishNotationConverter {
 		}
 	}
 
-	private static void caseTwoArgFunction(int delimiterCounter)
-			throws IOException {
+	private static void caseTwoArgFunction(int delimiterCounter) throws IOException {
 
 		if (!stackOperators.empty()
-				&& MathElements.isTwoArgFunction(stackOperators.peek())) {
-			if (delimiterCounter != 1) {
+		    && MathElements.isTwoArgFunction(stackOperators.peek())) {
+			
+			f (delimiterCounter != 1) {
 				bugIllegalNumberOfArguments();
 			} else {
 				output.add(stackOperators.pop());
@@ -185,11 +193,10 @@ public class ReversePolishNotationConverter {
 		}
 	}
 
-	private static void caseNoFunctions(int delimiterCounter)
-			throws IOException {
+	private static void caseNoFunctions(int delimiterCounter) throws IOException {
 		
 		if (!stackOperators.empty() && (delimiterCounter != 0)
-				&& !MathElements.isFunction(stackOperators.peek())) {
+		    && !MathElements.isFunction(stackOperators.peek())) {
 			
 			bugIllegalNumberOfArguments();
 		}
@@ -197,29 +204,23 @@ public class ReversePolishNotationConverter {
 	
 	private static void checkAdjacentTokens(String previousToken,
 			String currentToken) throws IOException {
+				
 		if ((previousToken.equals("(") && currentToken.equals(")"))
-				|| (previousToken.equals("(") && currentToken.equals(","))
-				|| (previousToken.equals("(") 
-						&& MathElements.isOperator(currentToken))
-				|| (previousToken.equals(")") && currentToken.equals("("))
-				|| (previousToken.equals(")") && MathElements.isNumber(currentToken))
-				|| (previousToken.equals(")") 
-						&& MathElements.isOneArgFunction(currentToken))
-				|| (previousToken.equals(")") 
-						&& MathElements.isTwoArgFunction(currentToken))
-				|| (previousToken.equals(",") && currentToken.equals(")"))
-				|| (previousToken.equals(",") 
-						&& MathElements.isOperator(currentToken))
-				|| (MathElements.isOperator(previousToken) 
-						&& MathElements.isOperator(currentToken))
-				|| (MathElements.isOneArgFunction(previousToken) 
-						&& !currentToken.equals("("))
-				|| (MathElements.isTwoArgFunction(previousToken) 
-						&& !currentToken.equals("("))) {
+		     || (previousToken.equals("(") && currentToken.equals(","))
+		     || (previousToken.equals("(") && MathElements.isOperator(currentToken))
+		     || (previousToken.equals(")") && currentToken.equals("("))
+		     || (previousToken.equals(")") && MathElements.isNumber(currentToken))
+		     || (previousToken.equals(")") && MathElements.isOneArgFunction(currentToken))
+	 	     || (previousToken.equals(")") && MathElements.isTwoArgFunction(currentToken))
+		     || (previousToken.equals(",") && currentToken.equals(")"))
+		     || (previousToken.equals(",") && MathElements.isOperator(currentToken))
+		     || (MathElements.isOperator(previousToken) && MathElements.isOperator(currentToken))
+		     || (MathElements.isOneArgFunction(previousToken) && !currentToken.equals("("))
+		     || (MathElements.isTwoArgFunction(previousToken) && !currentToken.equals("("))) {
 
 			int bugPosition = findBugPosition();
 			throw new IOException("Uncorrect sequense of math elements \""
-					+ previousToken + currentToken + "\" that in the positions ¹"
+					+ previousToken + currentToken + "\" that in the positions #"
 					+ (bugPosition - 1) + "-" + bugPosition);
 		}
 	}
@@ -228,24 +229,26 @@ public class ReversePolishNotationConverter {
 		
 		String withoutSpaces = originExpression.replace(" ", "");
 		
-		StringTokenizer withoutSpacesTokenizer = MathElements
-				.getTokenizer(withoutSpaces);
-		StringTokenizer processedTokenizer = MathElements
-				.getTokenizer(preparedExpression);
+		StringTokenizer withoutSpacesTokenizer = MathElements.getTokenizer(withoutSpaces);
+		StringTokenizer processedTokenizer = MathElements.getTokenizer(preparedExpression);
 		
 		String withoutSpacesToken = withoutSpacesTokenizer.nextToken();
-		String processedToken = processedTokenizer.nextToken();
-		int indexInWithoutSpaces = 1;
+		String processedToken     = processedTokenizer.nextToken();
+		int indexInWithoutSpaces  = 1;
 		int indexInPreparedExpression = 1;
 		
 		while (indexInWithoutSpaces < indexOfCurrentToken) {
+			
 			if (withoutSpacesToken.equals(processedToken)) {
 				indexInPreparedExpression++;
+				
 				if (!withoutSpacesTokenizer.hasMoreTokens()) {
 					break;
 				}
+				
 				withoutSpacesToken = withoutSpacesTokenizer.nextToken();
 			}
+			
 			indexInWithoutSpaces++;
 			processedToken = processedTokenizer.nextToken();
 		}
@@ -267,13 +270,14 @@ public class ReversePolishNotationConverter {
 	}
 
 	private static void bugIllegalNumberOfArguments() throws IOException {
+		
 		int bugPosition = findBugPosition();
-		throw new IOException(
-				"Illegal number of arguments is inside parentheses at position #"
-						+ bugPosition);
+		throw new IOException("Illegal number of arguments is inside" +
+				      + "parentheses at position #" + bugPosition);
 	}
 
 	private static void bugNoLeftBracket() throws IOException {
+		
 		int bugPosition = findBugPosition();
 		throw new IOException("There is a mistake in math expression: "
 				+ "\")\", " + "that is in position #: " + bugPosition
@@ -281,14 +285,15 @@ public class ReversePolishNotationConverter {
 	}
 
 	private static void errorNoRightBracket() throws IOException {
+		
 		int bugPosition = findBugPosition();
 		throw new IOException("There is a mistake in math expression: "
 				+ " put right bracket \")\" " + "at last position (#: "
 				+ (bugPosition + 1) + ") to complete expression");
 	}
 
-	private static void errorUnknownArgument(String unknownToken)
-			throws IOException {
+	private static void errorUnknownArgument(String unknownToken) throws IOException {
+		
 		int bugPosition = findBugPosition();
 		throw new IOException("There is a mistake in math expression: "
 				+ "unknown math element \"" + unknownToken + "\" at position #"
