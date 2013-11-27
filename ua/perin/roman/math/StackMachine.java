@@ -17,7 +17,7 @@ public class StackMachine {
 			List<String> reversePolishNotation) {
 		
 		List<String> rpn  =  reversePolishNotation;
-		String token 	  =  "";
+		String token      =  "";
 		double firstArg   =  0d;
 		double secondArg  =  0d;
 
