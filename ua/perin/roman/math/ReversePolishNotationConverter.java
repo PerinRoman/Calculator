@@ -17,11 +17,11 @@ public class ReversePolishNotationConverter {
 
 	private static String originExpression;
 	private static String preparedExpression;
-	private static List<String> output	     = new LinkedList<>();
+	private static List<String> output           = new LinkedList<>();
 	private static Stack<String> stackOperators  = new Stack<String>();
 	private static int    indexOfCurrentToken    = 0;
-	private static String token 		     = "";
-	private static String previousToken 	     = "";
+	private static String token                  = "";
+	private static String previousToken          = "";
 
 	public static List<String> sortingStation(String inputExpression)
 			throws IOException {
