@@ -21,17 +21,20 @@ public class Calculator {
 		System.out.println("Choose the type of calculator: \n"
 				+ "for \"Common Calculator\" - enter \"C\" \n"
 				+ "for \"Scientific Calculator\" - enter \"S\"");
+				
 		expression = in.nextLine();
 
-		while (!(expression.equalsIgnoreCase("c") || expression
-				.equalsIgnoreCase("s"))) {
+
+		while (!(expression.equalsIgnoreCase("c") || expression.equalsIgnoreCase("s"))) {
 
 			System.out.println("You have written: " + expression + "\n"
 					+ "Select the calculator you want to work with: \n"
 					+ "for \"Common Calculator\" - enter \"C\" \n"
 					+ "for \"Scientific Calculator\" - enter \"S\" \n");
+					
 			expression = in.nextLine();
 		}
+
 
 		if (expression.equalsIgnoreCase("C")) {
 			System.out.println("You have chosen \"Common Calculator\"");
