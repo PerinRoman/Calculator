@@ -152,8 +152,7 @@ public class ReversePolishNotationConverter {
 		return output;
 	}
 
-	private static void checkTokens(String previousToken, String currentToken)
-			throws IOException {
+	private static void checkTokens(String previousToken, String currentToken) throws IOException {
 
 		if (!previousToken.isEmpty()) {
 			checkAdjacentTokens(previousToken, currentToken);
