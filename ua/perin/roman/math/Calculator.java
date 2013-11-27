@@ -46,9 +46,9 @@ public class Calculator {
 			MathElements.setScientificCalculator();
 		}
 
-		double result	 =  0d;
+		double result    =  0d;
 		List<String> RPN =  null;
-		boolean flag	 =  true;
+		boolean flag     =  true;
 
 		while (flag) {
 			System.out.println("Please, enter expression: \n");
