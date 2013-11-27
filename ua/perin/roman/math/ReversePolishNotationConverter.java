@@ -23,8 +23,7 @@ public class ReversePolishNotationConverter {
 	private static String token                  = "";
 	private static String previousToken          = "";
 
-	public static List<String> sortingStation(String inputExpression)
-			throws IOException {
+	public static List<String> sortingStation(String inputExpression) throws IOException {
 
 		if (inputExpression == null || inputExpression.length() == 0){
 			throw new IOException("Mathematical expression isn't specified.");
