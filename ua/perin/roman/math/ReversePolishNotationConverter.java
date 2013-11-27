@@ -160,8 +160,7 @@ public class ReversePolishNotationConverter {
 		} else if (MathElements.isOperator(currentToken)
 			   || currentToken.equals(")") || currentToken.equals(",")) {
 			   	
-			throw new IOException("Incorrect first argument: \""
-					      + currentToken + "\"");
+			throw new IOException("Incorrect first argument: \"currentToken\"");
 		}
 	}
 
